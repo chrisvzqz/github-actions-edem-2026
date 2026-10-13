@@ -1,0 +1,20 @@
+name: "Variables de Entorno Globales"
+on:
+  workflow_dispatch:
+jobs:
+  first_job:
+    name: "Mi edad"
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Soy Christian y tengo ${{ vars.EDAD }} años"
+
+  second_job:
+    name: "Año nacimiento"
+    runs-on: ubuntu-latest
+    steps:
+      - id: get-birthday
+        name: "Año de nacimiento"
+        run: |
+          birthday=$((2026 - ${{ vars.EDAD }}))
+          echo "date=$birthday" >> "$GITHUB_OUTPUT"
+      - run: echo "He nacido en el año ${{ steps.get-birthday.outputs.date }}"
