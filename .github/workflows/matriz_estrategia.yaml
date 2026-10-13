@@ -1,0 +1,19 @@
+name: "Matriz de Estrategia"
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    name: "Hola mundo en ${{ matrix.py-version }}"
+    strategy:
+      matrix:
+        py-version: ['3.10', '3.11', '3.12']
+    runs-on: ${{ matrix.py-version }}
+    steps:
+      - name: "Configurar Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.py-version }}
+      
+      - run: |
+          python --version
+          echo "Hola mundo"
